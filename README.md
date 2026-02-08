@@ -1,2 +1,3 @@
 # TC BJJ Academy App
-App de gestão da academia TC BJJ.
+
+Abra `index.html` via Vercel. Rode `supabase.sql` no Supabase.

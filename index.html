@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TC BJJ Academy App</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <header class="top">
+    <img class="logo" src="logo-tc.png" alt="TC BJJ" />
+    <div class="title">
+      <h1>TC BJJ Academy App</h1>
+      <p class="sub">Centro de Treinamento Tanailson Cavalcante BJJ</p>
+    </div>
+  </header>
+
+  <main class="card">
+    <section id="setupSection">
+      <h2>1) Conectar ao Supabase</h2>
+      <p class="muted">Cole a <b>URL do projeto</b> e a <b>Chave publicável</b> (API Keys &gt; Chave publicável).</p>
+      <label>URL do projeto</label>
+      <input id="sbUrl" placeholder="https://xxxx.supabase.co" />
+      <label>Chave publicável</label>
+      <input id="sbKey" placeholder="sb_publishable_..." />
+      <button id="saveSb">Salvar e continuar</button>
+      <div class="hint">PIX da academia: <b>tanailsoncavalcante@gmail.com</b></div>
+      <div id="setupMsg" class="msg"></div>
+    </section>
+
+    <section id="authSection" class="hidden">
+      <h2>2) Login do aluno</h2>
+      <label>Email</label>
+      <input id="email" type="email" placeholder="seuemail@gmail.com" />
+      <label>Senha</label>
+      <input id="password" type="password" placeholder="mínimo 6 caracteres" />
+      <div class="row">
+        <button id="btnLogin">Entrar</button>
+        <button class="secondary" id="btnSignup">Criar conta</button>
+      </div>
+      <div id="authMsg" class="msg"></div>
+    </section>
+
+    <section id="appSection" class="hidden">
+      <nav class="tabs">
+        <button data-tab="tabAgenda" class="tab active">Agenda</button>
+        <button data-tab="tabPerfil" class="tab">Perfil</button>
+        <button data-tab="tabPagamento" class="tab">Pagamento</button>
+        <button data-tab="tabAdmin" class="tab">Admin</button>
+      </nav>
+
+      <section id="tabAgenda" class="tabPanel">
+        <h2>Agenda (dias e horários)</h2>
+        <p class="muted">Veja as aulas e confirme presença.</p>
+        <div id="agendaList" class="list"></div>
+      </section>
+
+      <section id="tabPerfil" class="tabPanel hidden">
+        <h2>Perfil do aluno</h2>
+        <div class="profile">
+          <img id="avatarPreview" class="avatar" src="avatar-placeholder.png" alt="foto" />
+          <div class="grow">
+            <label>Nome completo</label>
+            <input id="fullName" placeholder="Nome do aluno" />
+            <label>Telefone</label>
+            <input id="phone" placeholder="(71) 99999-9999" />
+            <label>Faixa</label>
+            <input id="belt" placeholder="Branca / Azul / Roxa..." />
+          </div>
+        </div>
+
+        <label>Foto do perfil (JPG/PNG)</label>
+        <input id="avatarFile" type="file" accept="image/*" />
+        <button id="saveProfile">Salvar perfil</button>
+        <div id="profileMsg" class="msg"></div>
+      </section>
+
+      <section id="tabPagamento" class="tabPanel hidden">
+        <h2>Pagamento (PIX)</h2>
+        <div class="paybox">
+          <p>Pague via PIX para:</p>
+          <div class="pix">tanailsoncavalcante@gmail.com</div>
+          <p class="muted">Depois envie o comprovante aqui.</p>
+          <input id="receiptFile" type="file" accept="image/*,application/pdf" />
+          <button id="sendReceipt">Enviar comprovante</button>
+          <div id="payMsg" class="msg"></div>
+        </div>
+      </section>
+
+      <section id="tabAdmin" class="tabPanel hidden">
+        <h2>Admin (criar horários)</h2>
+        <p class="muted">Somente administradores conseguem ver e usar esta aba.</p>
+
+        <div id="adminLocked" class="msg warn">Você ainda não é admin. Peça ao responsável para marcar seu usuário como admin.</div>
+
+        <div id="adminPanel" class="hidden">
+          <h3>Novo horário</h3>
+          <label>Dia da semana</label>
+          <select id="dayOfWeek">
+            <option>Segunda</option><option>Terça</option><option>Quarta</option><option>Quinta</option><option>Sexta</option><option>Sábado</option><option>Domingo</option>
+          </select>
+          <label>Hora</label>
+          <input id="time" placeholder="19:00" />
+          <label>Turma</label>
+          <input id="className" placeholder="Kids / Adulto / Feminino / PCD / Master" />
+          <button id="createSchedule">Adicionar horário</button>
+
+          <h3 class="mt">Horários cadastrados</h3>
+          <div id="adminSchedules" class="list"></div>
+        </div>
+
+        <div id="adminMsg" class="msg"></div>
+      </section>
+
+      <div class="row mt">
+        <button class="secondary" id="btnLogout">Sair</button>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <small>TC BJJ Academy • Rua Novo Horizonte da Sussuarana n13 B, Novo Horizonte, Salvador - BA</small>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
